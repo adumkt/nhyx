@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>牛黄文化馆 · 中学生研学</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #B8860B;
+            --gold-light: #F0C040;
+            --gold-lighter: #FDF0A0;
+            --gold-dark: #7A5C00;
+            --amber: #D4860B;
+            --bg-cream: #FFFCF0;
+            --bg-warm: #FFF8E8;
+            --bg-card: #FFFFFF;
+            --bg-card2: #FFFBF0;
+            --bg-card3: #FFF5E0;
+            --text-dark: #2C1A0E;
+            --text-main: #4A3020;
+            --text-muted: #8B6E4E;
+            --accent-red: #C0392B;
+            --accent-green: #27AE60;
+            --accent-blue: #2980B9;
+            --border: rgba(184,134,11,0.2);
+            --shadow: rgba(184,134,11,0.1);
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: var(--bg-cream);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== 开屏页 ===== */
+        .splash {
+            min-height: 100vh;
+            background: linear-gradient(160deg, #FFFBF0 0%, #FFF0D0 50%, #FFE8A0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .splash::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(184,134,11,0.06) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: bgMove 20s linear infinite;
+        }
+
+        @keyframes bgMove {
+            from { transform: translate(0,0); }
+            to { transform: translate(30px,30px); }
+        }
+
+        .splash-badge {
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            color: white;
+            font-size: 11px;
+            padding: 5px 16px;
+            border-radius: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .splash-icon {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .splash-title {
+            font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+            font-size: 42px;
+            color: var(--gold);
+            line-height: 1.2;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 30px rgba(201,169,97,0.3);
+        }
+
+        .splash-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .splash-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 360px;
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .splash-mini-card {
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(184,134,11,0.3);
+            border-radius: 14px;
+            padding: 16px 12px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .splash-mini-card .mini-icon { font-size: 28px; margin-bottom: 6px; }
+        .splash-mini-card .mini-num { font-size: 22px; font-weight: 700; color: var(--gold); }
+        .splash-mini-card .mini-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        .splash-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 300px;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            color: white;
+            border: none;
+            padding: 14px 48px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(184,134,11,0.35);
+        }
+
+        .enter-btn:active { transform: scale(0.96); }
+
+        /* ===== 顶部固定导航 ===== */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,252,240,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(201,169,97,0.15);
+            padding: 0 16px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-nav-title {
+            font-size: 15px;
+            color: var(--gold-dark);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .top-nav-progress {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ===== 内容区域 ===== */
+        .content { display: none; padding-bottom: 80px; }
+
+        .section-block {
+            padding: 28px 18px;
+            border-bottom: 1px solid rgba(184,134,11,0.1);
+        }
+
+        .section-block:last-child { border-bottom: none; }
+
+        /* ===== 展区标题 ===== */
+        .exhibit-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(184,134,11,0.1);
+            border: 1px solid rgba(184,134,11,0.25);
+            color: var(--gold-dark);
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .exhibit-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.35;
+            margin-bottom: 6px;
+        }
+
+        .exhibit-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 内容卡片 ===== */
+        .content-text {
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--text-dark);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(184,134,11,0.08) 0%, rgba(255,240,160,0.3) 100%);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 10px 10px 0;
+            padding: 12px 16px;
+            margin: 14px 0;
+        }
+
+        .highlight-box .h-title {
+            font-size: 11px;
+            color: var(--gold-dark);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .highlight-box .h-text {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .fact-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 14px;
+            border: 1px solid rgba(201,169,97,0.1);
+        }
+
+        .fact-card .fc-icon { font-size: 22px; margin-bottom: 6px; }
+        .fact-card .fc-num { font-size: 20px; font-weight: 700; color: var(--gold); }
+        .fact-card .fc-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
+
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            margin: 14px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), rgba(201,169,97,0.2));
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .tl-item::before {
+            content: '●';
+            position: absolute;
+            left: -17px;
+            top: 3px;
+            font-size: 10px;
+            color: var(--gold);
+        }
+
+        .tl-era {
+            font-size: 10px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .tl-text { font-size: 13px; line-height: 1.65; color: var(--text-dark); }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 12px 0;
+        }
+
+        .pill {
+            background: rgba(184,134,11,0.1);
+            border: 1px solid rgba(184,134,11,0.3);
+            color: var(--gold-dark);
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        /* ===== 名著卡片 ===== */
+        .book-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .book-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 16px;
+            border: 1px solid rgba(201,169,97,0.12);
+            position: relative;
+        }
+
+        .book-card .bc-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .book-card .bc-quote {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-style: italic;
+            border-left: 2px solid rgba(184,134,11,0.3);
+            padding-left: 10px;
+        }
+
+        .book-card .bc-meaning {
+            font-size: 12px;
+            color: var(--text-dark);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        /* ===== 科研卡片 ===== */
+        .science-step {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(184,134,11,0.15);
+        }
+
+        .science-step .ss-num {
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .science-step .ss-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .science-step .ss-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .quote-block {
+            text-align: center;
+            padding: 20px;
+            margin: 14px 0;
+            background: radial-gradient(ellipse at center, rgba(184,134,11,0.1) 0%, transparent 70%);
+        }
+
+        .quote-block .qb-text {
+            font-size: 16px;
+            color: var(--gold-dark);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .quote-block .qb-author {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* ===== 底部导航 ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255,252,240,0.97);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(201,169,97,0.15);
+            padding: 6px 0;
+            padding-bottom: max(6px, env(safe-area-inset-bottom));
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .bn-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .bn-item.active { background: rgba(201,169,97,0.12); }
+        .bn-item .bn-icon { font-size: 20px; }
+        .bn-item .bn-label { font-size: 9px; color: var(--text-muted); letter-spacing: 0.5px; }
+        .bn-item.active .bn-label { color: var(--gold); }
+
+        /* ===== 研学任务页 ===== */
+        .task-header {
+            background: linear-gradient(135deg, rgba(201,169,97,0.15) 0%, rgba(139,69,19,0.1) 100%);
+            border-radius: 16px;
+            padding: 18px 18px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(201,169,97,0.2);
+        }
+
+        .task-level {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .level-simple { background: rgba(45,90,39,0.3); color: #7BC67B; border: 1px solid rgba(45,90,39,0.4); }
+        .level-deep { background: rgba(26,58,92,0.3); color: #7BAFD4; border: 1px solid rgba(26,58,92,0.4); }
+        .level-pro { background: rgba(139,37,0,0.3); color: #E8907A; border: 1px solid rgba(139,37,0,0.4); }
+
+        .task-title-main {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .task-desc-main {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .task-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(184,134,11,0.15);
+        }
+
+        .task-card .tc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .task-card .tc-task-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .task-section {
+            margin-bottom: 10px;
+        }
+
+        .task-section .ts-label {
+            font-size: 10px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .task-section .ts-label::before {
+            content: '▸';
+            font-size: 8px;
+        }
+
+        .task-section .ts-text {
+            font-size: 12.5px;
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        /* ===== 底部记录表 ===== */
+        .record-form {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid rgba(184,134,11,0.15);
+        }
+
+        .form-row {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(201,169,97,0.05);
+            border: 1px solid rgba(201,169,97,0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text-dark);
+            font-size: 13px;
+            font-family: 'Noto Serif SC', serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--gold);
+        }
+
+        .form-textarea {
+            width: 100%;
+            background: rgba(201,169,97,0.05);
+            border: 1px solid rgba(201,169,97,0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text-dark);
+            font-size: 13px;
+            font-family: 'Noto Serif SC', serif;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s;
+        }
+
+        .form-textarea:focus { border-color: var(--gold); }
+
+        /* ===== 分割装饰 ===== */
+        .divider {
+            text-align: center;
+            padding: 8px 0;
+            color: rgba(201,169,97,0.3);
+            font-size: 10px;
+            letter-spacing: 4px;
+        }
+
+        /* ===== 关于页 ===== */
+        .about-hero {
+            text-align: center;
+            padding: 32px 20px 24px;
+            background: linear-gradient(180deg, rgba(184,134,11,0.1) 0%, transparent 100%);
+        }
+
+        .about-icon { margin-bottom: 12px; display: flex; justify-content: center; }
+
+        .info-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 16px;
+            margin: 0 18px 14px;
+            border: 1px solid rgba(184,134,11,0.15);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(184,134,11,0.08);
+        }
+
+        .info-row:last-child { border-bottom: none; }
+
+        .info-key {
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            width: 80px;
+        }
+
+        .info-val {
+            font-size: 12.5px;
+            color: var(--text-dark);
+            text-align: right;
+        }
+
+        /* ===== 滚动动画 ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== tab导航 ===== */
+        .tab-bar {
+            display: flex;
+            gap: 4px;
+            padding: 12px 18px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .tab-bar::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex-shrink: 0;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            border: 1px solid rgba(184,134,11,0.25);
+            color: var(--text-muted);
+            background: transparent;
+        }
+
+        .tab-item.active {
+            background: var(--gold);
+            color: white;
+            font-weight: 700;
+            border-color: var(--gold);
+        }
+
+        .task-page { display: none; }
+
+        /* ===== 分享功能 ===== */
+        .share-fab {
+            position: fixed;
+            bottom: 90px;
+            right: 18px;
+            z-index: 200;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(184,134,11,0.4);
+            transition: all 0.3s;
+            font-size: 22px;
+        }
+        .share-fab.show { display: flex; }
+        .share-fab:active { transform: scale(0.92); }
+
+        .share-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .share-overlay.show { display: flex; }
+
+        .share-panel {
+            background: var(--bg-card);
+            border-radius: 20px 20px 0 0;
+            padding: 28px 24px;
+            padding-bottom: max(28px, env(safe-area-inset-bottom));
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .share-panel-handle {
+            width: 36px;
+            height: 4px;
+            background: rgba(184,134,11,0.25);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .share-panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .share-opt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .share-opt:active { transform: scale(0.9); }
+
+        .share-opt-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .share-opt-icon.wechat { background: #07C160; color: white; }
+        .share-opt-icon.sms { background: #2980B9; color: white; }
+        .share-opt-icon.email { background: #E74C3C; color: white; }
+        .share-opt-icon.copy { background: var(--gold); color: white; }
+
+        .share-opt-label { font-size: 11px; color: var(--text-muted); }
+
+        .qr-section {
+            background: var(--bg-card2);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            border: 1px solid rgba(184,134,11,0.1);
+            margin-bottom: 14px;
+        }
+
+        .qr-section-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .qr-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .share-card-preview {
+            background: linear-gradient(135deg, rgba(184,134,11,0.08) 0%, rgba(255,240,160,0.2) 100%);
+            border: 1px solid rgba(184,134,11,0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .share-card-preview .sc-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .share-card-preview .sc-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .share-card-preview .sc-url {
+            font-size: 11px;
+            color: var(--gold-dark);
+            margin-top: 6px;
+            word-break: break-all;
+        }
+
+        .save-card-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(184,134,11,0.25);
+            margin-bottom: 8px;
+        }
+        .save-card-btn:active { transform: scale(0.97); }
+
+        .share-close {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(184,134,11,0.2);
+            color: var(--text-muted);
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .share-close:active { background: rgba(184,134,11,0.05); }
+
+        .share-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(44,26,14,0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 2001;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .share-toast.hidden { opacity: 0; }
+
+        /* ===== 分享功能 ===== */
+        .share-fab {
+            position: fixed;
+            bottom: 90px;
+            right: 18px;
+            z-index: 200;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(184,134,11,0.4);
+            transition: all 0.3s;
+            font-size: 22px;
+        }
+        .share-fab.show { display: flex; }
+        .share-fab:active { transform: scale(0.92); }
+
+        .share-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .share-overlay.show { display: flex; }
+
+        .share-panel {
+            background: var(--bg-card);
+            border-radius: 20px 20px 0 0;
+            padding: 28px 24px;
+            padding-bottom: max(28px, env(safe-area-inset-bottom));
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .share-panel-handle {
+            width: 36px;
+            height: 4px;
+            background: rgba(184,134,11,0.25);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .share-panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .share-opt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .share-opt:active { transform: scale(0.9); }
+
+        .share-opt-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .share-opt-icon.wechat { background: #07C160; color: white; }
+        .share-opt-icon.sms { background: #2980B9; color: white; }
+        .share-opt-icon.email { background: #E74C3C; color: white; }
+        .share-opt-icon.copy { background: var(--gold); color: white; }
+
+        .share-opt-label { font-size: 11px; color: var(--text-muted); }
+
+        .qr-section {
+            background: var(--bg-card2);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            border: 1px solid rgba(184,134,11,0.1);
+            margin-bottom: 14px;
+        }
+
+        .qr-section-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .qr-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .share-card-preview {
+            background: linear-gradient(135deg, rgba(184,134,11,0.08) 0%, rgba(255,240,160,0.2) 100%);
+            border: 1px solid rgba(184,134,11,0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .share-card-preview .sc-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .share-card-preview .sc-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .share-card-preview .sc-url {
+            font-size: 11px;
+            color: var(--gold-dark);
+            margin-top: 6px;
+            word-break: break-all;
+        }
+
+        .save-card-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(184,134,11,0.25);
+            margin-bottom: 8px;
+        }
+        .save-card-btn:active { transform: scale(0.97); }
+
+        .share-close {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(184,134,11,0.2);
+            color: var(--text-muted);
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .share-close:active { background: rgba(184,134,11,0.05); }
+
+        .share-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(44,26,14,0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 2001;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .share-toast.hidden { opacity: 0; }
+
+
+        .zone-nav-item:active {
+            transform: scale(0.93);
+        }
+
+        .zone-nav-item:hover:not(.active) {
+            border-color: rgba(184,134,11,0.4);
+            background: rgba(255,255,255,0.95);
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- ==================== 开屏页 ==================== -->
+<div id="splash" class="splash">
+    <div class="splash-badge">🏫 中学生研学基地</div>
+    <div class="splash-icon"><svg width="90" height="90" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="nbg1" cx="32%" cy="25%" r="72%">
+      <stop offset="0%" stop-color="#F5D060"/>
+      <stop offset="42%" stop-color="#D4870B"/>
+      <stop offset="100%" stop-color="#8B5A00"/>
+    </radialGradient>
+    <radialGradient id="nbg2" cx="68%" cy="75%" r="55%">
+      <stop offset="0%" stop-color="#F5D060" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#8B5A00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nshine" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Stone body -->
+  <path d="M50 11 C73 11 88 24 90 46 C92 68 79 84 58 87 C37 90 13 76 11 54 C9 33 26 11 50 11Z" fill="url(#nbg1)"/>
+  <!-- Inner glow -->
+  <path d="M50 11 C73 11 88 24 90 46 C92 68 79 84 58 87 C37 90 13 76 11 54 C9 33 26 11 50 11Z" fill="url(#nbg2)"/>
+  <!-- Ring 1 -->
+  <path d="M50 19 C71 19 83 31 85 51 C87 71 74 83 55 86 C36 89 15 77 13 57 C11 37 28 19 50 19Z" fill="none" stroke="#E8A820" stroke-width="2.5" opacity="0.5"/>
+  <!-- Ring 2 -->
+  <path d="M50 27 C67 27 77 37 79 55 C81 73 70 81 53 84 C36 87 22 77 20 59 C18 41 32 27 50 27Z" fill="none" stroke="#F0C040" stroke-width="2.2" opacity="0.48"/>
+  <!-- Ring 3 -->
+  <path d="M50 36 C63 36 72 44 74 59 C76 74 66 80 53 82 C40 84 29 76 27 62 C25 48 36 36 50 36Z" fill="none" stroke="#F8D860" stroke-width="2" opacity="0.45"/>
+  <!-- Ring 4 -->
+  <path d="M50 45 C59 45 66 51 68 63 C70 75 63 79 53 81 C43 83 34 77 32 66 C30 55 40 45 50 45Z" fill="none" stroke="#FCE070" stroke-width="1.8" opacity="0.4"/>
+  <!-- Core glow -->
+  <ellipse cx="50" cy="62" rx="11" ry="9" fill="#F8E060" opacity="0.3"/>
+  <!-- Main highlight -->
+  <ellipse cx="37" cy="35" rx="14" ry="9" fill="url(#nshine)" transform="rotate(-22, 37, 35)"/>
+  <!-- Small shine -->
+  <ellipse cx="42" cy="32" rx="6" ry="3.5" fill="white" opacity="0.38" transform="rotate(-22, 42, 32)"/>
+  <!-- Sparkle -->
+  <circle cx="34" cy="31" r="1.8" fill="white" opacity="0.55"/>
+  <!-- Surface texture -->
+  <path d="M62 28 Q68 40 64 52" stroke="#C08018" stroke-width="1" fill="none" opacity="0.22"/>
+  <path d="M72 52 Q69 64 66 74" stroke="#C08018" stroke-width="1" fill="none" opacity="0.18"/>
+  <path d="M26 50 Q30 63 27 76" stroke="#C08018" stroke-width="1" fill="none" opacity="0.18"/>
+  <!-- Bottom shadow -->
+  <ellipse cx="50" cy="85" rx="33" ry="4" fill="rgba(0,0,0,0.07)"/>
+</svg></div>
+    <h1 class="splash-title">牛黄文化馆</h1>
+    <p class="splash-sub">中学生研学导览</p>
+
+    <div class="splash-cards">
+        <div class="splash-mini-card">
+            <div class="mini-icon">📅</div>
+            <div class="mini-num">2000+</div>
+            <div class="mini-label">年历史</div>
+        </div>
+        <div class="splash-mini-card">
+            <div class="mini-icon">👨‍🎓</div>
+            <div class="mini-num">初中</div>
+            <div class="mini-label">适用年级</div>
+        </div>
+        <div class="splash-mini-card">
+            <div class="mini-icon">📍</div>
+            <div class="mini-num">9</div>
+            <div class="mini-label">大展区</div>
+        </div>
+        <div class="splash-mini-card">
+            <div class="mini-icon">⏱️</div>
+            <div class="mini-num">60~120</div>
+            <div class="mini-label">分钟参观</div>
+        </div>
+    </div>
+
+    <p class="splash-desc">
+        从古代皇室御药到现代科研突破<br>
+        化身小小中医研究员<br>
+        探索牛黄的神奇奥秘
+    </p>
+
+    <button class="enter-btn" onclick="enterMuseum()">开启研学之旅 →</button>
+</div>
+
+<!-- ==================== 主内容 ==================== -->
+<div id="content" class="content">
+
+    <!-- ===== 导览图区域 ===== -->
+    <div id="guide-area">
+        <div class="top-nav">
+            <div class="top-nav-title">🏛️ 牛黄文化馆导览</div>
+            <div class="top-nav-progress" id="navProgress">展区 1/9</div>
+        </div>
+
+        <!-- 展区1：镇库之宝 -->
+        <div class="section-block fade-up" id="zone-1">
+            <div class="exhibit-tag">📍 序厅 · 第一站</div>
+            <div class="exhibit-title">镇库之宝</div>
+            <div class="exhibit-subtitle">从中华农耕文明源头走来的神石</div>
+            <div class="content-text">
+                追溯中华农耕文明的起源，在辉耀天地的中医药宝库中，认识牛黄这一"镇库之宝"。
+                它本是牛胆中的<strong style="color:var(--gold)">偶然凝结</strong>，却承载着先民对生命奥秘的求索，化作诠释"阴阳和合"共生哲学的健康至宝。
+            </div>
+            <div class="highlight-box">
+                <div class="h-title">💡 你知道吗？</div>
+                <div class="h-text">
+                    牛黄是牛胆道或胆囊中的<strong>胆红素钙结石</strong>，每1000头牛中，只有1~2头牛会产生牛黄，比"大熊猫还稀有"！
+                </div>
+            </div>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <div class="fc-icon">🐂</div>
+                    <div class="fc-num">千牛一黄</div>
+                    <div class="fc-label">约1000头牛中仅1~2头产生牛黄</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">☯️</div>
+                    <div class="fc-num">阴阳和合</div>
+                    <div class="fc-label">牛属土，黄属火，土火相生</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 展区2：济世医典 -->
+        <div class="section-block fade-up" id="zone-2">
+            <div class="exhibit-tag">📍 第二站</div>
+            <div class="exhibit-title">济世医典载牛黄</div>
+            <div class="exhibit-subtitle">一部牛黄发展史，就是一部中医药史</div>
+            <div class="content-text">
+                沉浸于大医名典的数字交互屏，自秦汉《神农本草经》列为上品，历代医贤薪火相传，终将牛黄"为世神物，诸药莫及"的至尊地位熔铸于史。
+            </div>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-era">汉 · 《神农本草经》</div>
+                    <div class="tl-text">牛黄列为<strong style="color:var(--gold)">上品</strong>，"主惊，痫，寒，热，除邪，逐鬼"</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-era">南北朝 · 陶弘景</div>
+                    <div class="tl-text">新增"治<strong style="color:var(--gold)">小儿百病</strong>"，奠定儿科第一要药地位</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-era">唐代 · 孙思邈</div>
+                    <div class="tl-text">《千金方》收录约30个牛黄方剂，推动牛黄广泛应用</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-era">明代 · 李时珍</div>
+                    <div class="tl-text">《本草纲目》汇总千年牛黄功效，誉为"中药瑰宝"</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-era">清代 · 吴鞠通</div>
+                    <div class="tl-text">创制<strong style="color:var(--gold)">安宫牛黄丸</strong>，列入"温病三宝"，至今仍用于危重急症</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 展区3：稀贵神 -->
+        <div class="section-block fade-up" id="zone-3">
+            <div class="exhibit-tag">📍 第三站</div>
+            <div class="exhibit-title">稀 · 贵 · 神</div>
+            <div class="exhibit-subtitle">彰显尊贵身份的"上品君药"</div>
+            <div class="content-text">
+                探访御药流芳区，千牛之中仅一二可得牛黄，故"药中之贵，莫复过此"。
+            </div>
+            <div class="highlight-box">
+                <div class="h-title">⏳ 牛黄的身份演变</div>
+                <div class="h-text">
+                    <strong>秦汉</strong> → 禁药（民间禁用）<br>
+                    <strong>唐代</strong> → 贡品（皇室专享）<br>
+                    <strong>宋代</strong> → 官府调配（皇帝亲自控制分配）<br>
+                    <strong>明清</strong> → 御药（太医院必备）<br>
+                    <strong>现代</strong> → 国家战略资源
+                </div>
+            </div>
+            <div class="pill-list">
+                <span class="pill">🔒 禁药时期</span>
+                <span class="pill">👑 皇室贡品</span>
+                <span class="pill">🏛️ 官府调配</span>
+                <span class="pill">⚕️ 御药御医</span>
+                <span class="pill">🌍 国药之光</span>
+            </div>
+        </div>
+
+        <!-- 展区4：护佑华夏 -->
+        <div class="section-block fade-up" id="zone-4">
+            <div class="exhibit-tag">📍 第四站</div>
+            <div class="exhibit-title">护佑华夏安康</div>
+            <div class="exhibit-subtitle">维系中华民族的生生不息</div>
+            <div class="content-text">
+                两千多年来，牛黄忠诚护佑华夏安康。它被誉为"疗小儿百病"的儿科第一要药；每逢疫疠横行，又化身抗疫利器屡屡建功。
+            </div>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <div class="fc-icon">👶</div>
+                    <div class="fc-num">儿科圣药</div>
+                    <div class="fc-label">专治小儿高热惊厥、神昏等急症</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">🦠</div>
+                    <div class="fc-num">抗疫利器</div>
+                    <div class="fc-label">历次大疫中屡建奇功</div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <div class="h-title">😷 抗疫时间轴</div>
+                <div class="h-text">
+                    <strong>唐代</strong>孙思邈防疫方含牛黄 → <strong>宋代</strong>《局方》至宝丹治疫 → <strong>清代</strong>吴鞠通安宫牛黄丸抗疫 → <strong>2003年</strong>非典时期用于重症 → <strong>2020年</strong>新冠诊疗方案收录
+                </div>
+            </div>
+        </div>
+
+        <!-- 展区5：文脉丝路 -->
+        <div class="section-block fade-up" id="zone-5">
+            <div class="exhibit-tag">📍 第五站</div>
+            <div class="exhibit-title">文脉延续 · 民族交融 · 丝路明珠</div>
+            <div class="exhibit-subtitle">多元文明符号的生动演绎</div>
+            <div class="content-text">
+                漫步文学名著、民族交融与丝路明珠展区，牛黄是中华文明的多元符号。
+            </div>
+
+            <div class="book-cards">
+                <div class="book-card">
+                    <div class="bc-name">📕 《红楼梦》</div>
+                    <div class="bc-quote">"人参常有，牛黄未必有"</div>
+                    <div class="bc-meaning">说明牛黄比人参更稀罕，是贵族身份的象征</div>
+                </div>
+                <div class="book-card">
+                    <div class="bc-name">📗 《三国演义》</div>
+                    <div class="bc-quote">记载牛黄用于抗疫救治将士</div>
+                    <div class="bc-meaning">古代战场上的"急救神药"</div>
+                </div>
+                <div class="book-card">
+                    <div class="bc-name">📘 《金瓶梅》</div>
+                    <div class="bc-quote">西门庆千里迢迢"代购"牛黄清心丸</div>
+                    <div class="bc-meaning">明代牛黄已成一药难求的珍贵品</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="h-title">🌏 丝路传播</div>
+                <div class="h-text">
+                    牛黄沿丝绸之路西传，成为"文明使者"，装点异域王冠，并被藏医、蒙医、维医共同使用，成为中医药影响世界的典范。
+                </div>
+            </div>
+        </div>
+
+        <div class="divider">· · · · · ·</div>
+
+        <!-- 展区6：体外培育 -->
+        <div class="section-block fade-up" id="zone-6">
+            <div class="exhibit-tag" style="background:rgba(212,134,11,0.12);border-color:rgba(212,134,11,0.3);color:#E8B84B;">🔬 现代科研</div>
+            <div class="exhibit-title">破局之刃 · 行业之基 · 名药之魂</div>
+            <div class="exhibit-subtitle">体外培育牛黄 · 产业化全景</div>
+            <div class="content-text">
+                穿行产业化全景区，历经二十五年市场验证，体外培育牛黄为全国<b style="color:var(--gold)">30余家</b>药品企业提供核心原料，守护近<b style="color:var(--gold)">20家</b>中华老字号，让安宫牛黄丸等经典名方得以永续传承。
+            </div>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <div class="fc-icon">🏭</div>
+                    <div class="fc-num">30+</div>
+                    <div class="fc-label">药品企业核心原料供应商</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">🏮</div>
+                    <div class="fc-num">20家</div>
+                    <div class="fc-label">中华老字号守护者</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">🌿</div>
+                    <div class="fc-num">25年</div>
+                    <div class="fc-label">市场验证历程</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">🇺🇸</div>
+                    <div class="fc-num">国际</div>
+                    <div class="fc-label">获批美国、加拿大等国注册</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 展区7：抗炎应用 -->
+        <div class="section-block fade-up" id="zone-7">
+            <div class="exhibit-tag" style="background:rgba(26,58,92,0.15);border-color:rgba(26,58,92,0.3);color:#7BAFD4;">⚕️ 创新应用</div>
+            <div class="exhibit-title">沉浸式抗炎排毒体验</div>
+            <div class="exhibit-subtitle">牛黄在中医优势专科专病中的创新应用</div>
+            <div class="content-text">
+                炎症为万病之源，牛黄为中医药抗炎瑰宝。通过沉浸式交互，直观解读牛黄<strong style="color:#7BAFD4">清热解毒、活血化瘀、通络开窍、安神醒脑、补气益精</strong>的调理路径。
+            </div>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <div class="fc-icon">🧠</div>
+                    <div class="fc-num">心脑血管</div>
+                    <div class="fc-label">安宫牛黄丸保护脑神经</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">🩹</div>
+                    <div class="fc-num">皮肤外科</div>
+                    <div class="fc-label">清热解毒治疗疮疡肿毒</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">💆</div>
+                    <div class="fc-num">疼痛调理</div>
+                    <div class="fc-label">通络止痛缓解顽固疼痛</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">👶</div>
+                    <div class="fc-num">妇儿专科</div>
+                    <div class="fc-label">小儿惊风、妇科急症</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 展区8：东方之骄 -->
+        <div class="section-block fade-up" id="zone-8">
+            <div class="exhibit-tag" style="background:rgba(139,37,0,0.15);border-color:rgba(139,37,0,0.3);color:#E8907A;">🎓 科研先锋</div>
+            <div class="exhibit-title">东方之骄</div>
+            <div class="exhibit-subtitle">30年磨一剑的艰辛科研路</div>
+
+            <div class="quote-block">
+                <div class="qb-text">"化珍稀为普及，让牛黄惠泽大众"</div>
+                <div class="qb-author">—— 蔡红娇教授</div>
+            </div>
+
+            <div class="content-text" style="margin-bottom:14px;">
+                在蔡红娇教授展厅中观影，面对天然牛黄稀缺困局，她扎根科研一线，<strong style="color:#E8907A">三十年磨一剑</strong>，呕心沥血研创体外培育牛黄，以仿生学技术实现对天然牛黄"等效等量"的科学再现。
+            </div>
+
+            <div class="science-step">
+                <div class="ss-num">STEP 01</div>
+                <div class="ss-title">发现天然牛黄的成核机理</div>
+                <div class="ss-desc">核心成分：胆红素（含量35%，高于天然牛黄的25%）</div>
+            </div>
+            <div class="science-step">
+                <div class="ss-num">STEP 02</div>
+                <div class="ss-title">模拟牛胆内部环境进行仿生培育</div>
+                <div class="ss-desc">静电效应 + 高分子有机物聚集 + 加动能 → 牛黄晶核形成</div>
+            </div>
+            <div class="science-step">
+                <div class="ss-num">STEP 03</div>
+                <div class="ss-title">国家认证 · 国际出海</div>
+                <div class="ss-desc">荣获国家技术发明奖 · 纳入国家药典 · 获批美国、加拿大等国药品注册</div>
+            </div>
+        </div>
+
+        <!-- 展区9：国药之光 -->
+        <div class="section-block fade-up" id="zone-9">
+            <div class="exhibit-tag" style="background:rgba(45,90,39,0.15);border-color:rgba(45,90,39,0.3);color:#7BC67B;">🏆 成就</div>
+            <div class="exhibit-title">国药之光</div>
+            <div class="exhibit-subtitle">不是替代，而是科学再现</div>
+            <div class="content-text">
+                体外培育牛黄是中医药守正创新的重磅成果，荣获<strong style="color:#7BC67B">国家技术发明奖</strong>、纳入<strong style="color:#7BC67B">国家药典</strong>，院士权威认证其与天然牛黄可<strong style="color:#7BC67B">等量等效使用</strong>。
+            </div>
+            <div class="highlight-box" style="border-left-color:#7BC67B;">
+                <div class="h-title" style="color:#7BC67B;">✅ 院士权威认证结论</div>
+                <div class="h-text">
+                    "体外培育牛黄与天然牛黄可以<strong>等量等效</strong>互相替代使用"<br>
+                    —— 中国工程院院士
+                </div>
+            </div>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <div class="fc-icon">🏅</div>
+                    <div class="fc-num" style="color:#7BC67B;">国家发明奖</div>
+                    <div class="fc-label">国家技术发明奖</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-icon">📖</div>
+                    <div class="fc-num" style="color:#7BC67B;">药典收录</div>
+                    <div class="fc-label">纳入《中华人民共和国药典》</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 研学任务区域 ===== -->
+    <div id="task-area" class="task-page">
+        <div class="top-nav">
+            <div class="top-nav-title">📋 研学任务手册</div>
+            <div class="top-nav-progress" id="taskProgress">选择一个课题</div>
+        </div>
+
+        <!-- 难度选择Tab -->
+        <div class="tab-bar">
+            <div class="tab-item active" onclick="switchTaskLevel('simple', this)">🌱 简单</div>
+            <div class="tab-item" onclick="switchTaskLevel('deep', this)">🔍 深入</div>
+            <div class="tab-item" onclick="switchTaskLevel('pro', this)">🧪 专业</div>
+        </div>
+
+        <!-- 简单层级 -->
+        <div id="task-simple" class="task-content" style="padding:0 18px 20px;">
+            <div class="task-header">
+                <div class="task-level level-simple">🌱 简单层级</div>
+                <div class="task-title-main">初中低年级 · 激发兴趣</div>
+                <div class="task-desc-main">
+                    侧重观察寻找、趣味科普，建立对牛黄"稀、贵、神"的直观认知。
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">1</span>寻宝记——牛黄的"指纹"与"光环"</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">在序厅与真伪牛黄展区，寻找牛黄独有的视觉指纹（层纹结构），并记录古代典籍中关于"牛生黄则夜视其身有光、皮毛润泽"的描述。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">为什么牛黄会有像树木年轮一样的层纹？古人说牛黄会发光，这有科学依据吗？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">手绘一张牛黄层纹结构图，并写一段"神话与现实"的对比感悟。</div>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">2</span>名著里的牛黄"寻踪"</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">在文学名著展区，化身"文化侦探"，找出《红楼梦》《三国演义》《金瓶梅》等名著中关于牛黄的描写，并分析这些情节共同说明了牛黄的什么特质。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">为什么《红楼梦》里说"人参常有，牛黄未必有"？西门庆为什么要千里迢迢"代购"牛黄清心丸？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">完成一份"名著牛黄出场记录卡"，总结牛黄在古人生活中的地位（稀缺与神效）。</div>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">3</span>牛黄为何是皇室的"心头好"？</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">参观牛黄皇室展区，梳理从秦汉到明清，牛黄在宫廷中的身份变化（禁物→贡品→御药）。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">宋朝皇帝想用牛黄惠泽大众，为何却导致了"百姓竞屠牛以取黄"的悲剧？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">讲述一个关于牛黄与皇室的小故事。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 深入层级 -->
+        <div id="task-deep" class="task-content" style="padding:0 18px 20px;display:none;">
+            <div class="task-header">
+                <div class="task-level level-deep">🔍 深入层级</div>
+                <div class="task-title-main">初中高年级 · 理解逻辑</div>
+                <div class="task-desc-main">
+                    侧重逻辑梳理、人文思辨，理解中医药发展逻辑，培养跨学科思考能力。
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">1</span>"活牛吐黄"传说背后的科学与人伦</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">对比《本草经集注》中"牛黄长在角上，牛会自行吐出"的记载，与蔡红娇教授研究发现的"牛黄是胆红素钙结石"的科学事实。结合农耕文明中耕牛的重要性，分析陶弘景等大医为何会将传说写入医书。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">陶弘景是真的不懂科学，还是在故意"犯错"？这反映了中医怎样的生命伦理观？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">撰写一篇题为《谎言中的慈悲：从"活牛吐黄"看中医的人与自然观》的短文。</div>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">2</span>一部牛黄史，半部抗疫史</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">在交互屏与华夏安康展区，梳理从孙思邈防疫方、宋代《局方》至宝丹、到现代新冠诊疗方案（安宫牛黄丸用于重症），牛黄在历次重大疫情中的应用轨迹。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">为什么每次遇到突发疫情，中医总会想到牛黄？牛黄抗疫的底层逻辑是什么（清热、开窍、解毒）？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">制作一份"牛黄抗疫时间轴"，并总结牛黄在应对急性传染病中的核心价值。</div>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">3</span>农耕文明与牛黄的"双向奔赴"</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">探究牛黄为何被誉为"中医儿科第一要药"和"妇科圣药"。结合农耕文明"多子多福"、对抗天灾扩大生产力的需求，分析牛黄的主治方向（小儿高热惊厥、难产）与社会需求的内在联系。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">如果没有牛黄，古代农耕社会会面临哪些更严峻的生存挑战？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">绘制一幅"农耕文明-人口需求-牛黄应用"的逻辑思维导图。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 专业层级 -->
+        <div id="task-pro" class="task-content" style="padding:0 18px 20px;display:none;">
+            <div class="task-header">
+                <div class="task-level level-pro">🧪 专业层级</div>
+                <div class="task-title-main">高中生 · 科学探究</div>
+                <div class="task-desc-main">
+                    侧重科学探究、论证创新，理解中药现代化路径，体验从传统经验到现代科学的转化过程。
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">1</span>从"废物"到"神药"——胆红素的科学逆袭</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">结合蔡红娇教授展区与科研视频，研究牛黄中核心成分胆红素的双重身份——在西方医学曾被认为是无用的"代谢废物"，而在牛黄中却是抗氧化、抗炎、保护神经的关键成分。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">现代科学是如何验证《本草经疏》中"牛黄散心火、消痰热"的古人经验的？中药组分学如何让牛黄的价值得到升华？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">撰写一份小科研报告《胆红素：从代谢废物到神经卫士的科学验证》。</div>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">2</span>仿生学在中药创新中的应用</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">深入研究蔡红娇教授体外培育牛黄的技术路线。对比化学配制（人工牛黄）与仿生培育（体外培育牛黄）的本质区别，理解"静电效应+高分子有机物聚集+加动能"的成核机理。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">为什么说体外培育牛黄是"试管婴儿"而不是"塑料娃娃"？它在解决中药成分不可控、重金属超标等问题上有何突破？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">绘制体外培育牛黄的技术路径图，并论述其"等量等效"的科学依据。</div>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <div class="tc-task-title"><span class="tc-num">3</span>中医药国际化的"破壁者"</div>
+                <div class="task-section">
+                    <div class="ts-label">研学任务</div>
+                    <div class="ts-text">分析传统动物源中药材（如天然牛黄）走向国际市场面临的壁垒（成分不稳定、安全性疑虑、伦理争议等），探讨体外培育牛黄如何凭借标准化、安全性获批美国、加拿大等国家。</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">思考问题</div>
+                    <div class="ts-text">从"解毒石"到"中国石"，再到现代的国际注册，牛黄出海经历了哪些转变？这对中国其他中药（如麝香、熊胆）的国际化有何借鉴意义？</div>
+                </div>
+                <div class="task-section">
+                    <div class="ts-label">预期成果</div>
+                    <div class="ts-text">撰写一篇商业与科技结合的分析报告《标准化：中医药走向世界的必由之路》。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 研学记录表 -->
+        <div class="section-block" style="padding:0 18px 20px;">
+            <div class="task-header" style="background:rgba(201,169,97,0.05);border-color:rgba(201,169,97,0.1);">
+                <div class="task-level" style="background:rgba(201,169,97,0.15);border-color:rgba(201,169,97,0.25);color:var(--gold);">📝 学生任务记录表</div>
+                <div class="task-desc-main" style="margin-top:8px;">选择一个课题，完成以下任务记录：</div>
+            </div>
+
+            <div class="record-form">
+                <div class="form-row">
+                    <div class="form-label">选择课题</div>
+                    <select class="form-input">
+                        <option value="">— 请选择 —</option>
+                        <option>寻宝记——牛黄的"指纹"与"光环"</option>
+                        <option>名著里的牛黄"寻踪"</option>
+                        <option>牛黄为何是皇室的"心头好"？</option>
+                        <option>"活牛吐黄"传说背后的科学与人伦</option>
+                        <option>一部牛黄史，半部抗疫史</option>
+                        <option>农耕文明与牛黄的"双向奔赴"</option>
+                        <option>胆红素的科学逆袭</option>
+                        <option>仿生学在中药创新中的应用</option>
+                        <option>中医药国际化的"破壁者"</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">我的发现</div>
+                    <textarea class="form-textarea" placeholder="在文化馆中发现了什么？"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">我的思考</div>
+                    <textarea class="form-textarea" placeholder="对这些问题有哪些独特见解？"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">我的疑问</div>
+                    <textarea class="form-textarea" placeholder="还有哪些想进一步探究的问题？"></textarea>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top:16px;background:rgba(45,90,39,0.08);border-left-color:#7BC67B;">
+                <div class="h-title" style="color:#7BC67B;">💬 研学感悟</div>
+                <div class="h-text">
+                    亲爱的同学，研学之旅虽然结束，但探索的脚步永不停歇。希望你通过这次活动，对中医药文化有了更深的认识和理解。愿你在未来的学习中继续保持好奇心，勇攀知识高峰！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 关于页面 ===== -->
+    <div id="about-area" class="task-page">
+        <div class="top-nav">
+            <div class="top-nav-title">ℹ️ 参观须知</div>
+        </div>
+
+        <div class="about-hero">
+            <div class="about-icon">
+<svg width="60" height="60" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shadow -->
+  <ellipse cx="50" cy="90" rx="30" ry="6" fill="rgba(0,0,0,0.15)"/>
+  <!-- Main body -->
+  <ellipse cx="50" cy="55" rx="38" ry="35" fill="#D4870B"/>
+  <!-- Gradient overlay -->
+  <ellipse cx="50" cy="55" rx="38" ry="35" fill="url(#bezoarGrad)"/>
+  <!-- Layer rings (bezoar characteristic rings) -->
+  <ellipse cx="50" cy="55" rx="30" ry="27" fill="none" stroke="#E8A820" stroke-width="2.5" opacity="0.6"/>
+  <ellipse cx="50" cy="55" rx="22" ry="20" fill="none" stroke="#F0C040" stroke-width="2.5" opacity="0.5"/>
+  <ellipse cx="50" cy="55" rx="14" ry="13" fill="none" stroke="#F8D860" stroke-width="2.5" opacity="0.5"/>
+  <!-- Highlight -->
+  <ellipse cx="38" cy="40" rx="10" ry="7" fill="rgba(255,255,255,0.35)" transform="rotate(-20,38,40)"/>
+  <!-- Small shine -->
+  <circle cx="42" cy="38" r="3" fill="rgba(255,255,255,0.5)"/>
+  <!-- Cute face - eyes -->
+  <circle cx="38" cy="52" r="3.5" fill="#5A3000"/>
+  <circle cx="62" cy="52" r="3.5" fill="#5A3000"/>
+  <!-- Eye highlights -->
+  <circle cx="39.5" cy="50.5" r="1.2" fill="white"/>
+  <circle cx="63.5" cy="50.5" r="1.2" fill="white"/>
+  <!-- Happy smile -->
+  <path d="M 42 62 Q 50 70 58 62" stroke="#5A3000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Blush -->
+  <circle cx="33" cy="60" r="6" fill="rgba(255,150,100,0.25)"/>
+  <circle cx="67" cy="60" r="6" fill="rgba(255,150,100,0.25)"/>
+  <!-- Small horns/antlers (cow-like) -->
+  <path d="M 25 30 Q 20 18 28 15 Q 30 25 30 30" fill="#C9A050" stroke="#8B6914" stroke-width="1"/>
+  <path d="M 75 30 Q 80 18 72 15 Q 70 25 70 30" fill="#C9A050" stroke="#8B6914" stroke-width="1"/>
+  <!-- Gradient definition -->
+  <defs>
+    <radialGradient id="bezoarGrad" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#F0C040" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#D4870B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
+</div>
+            <div class="exhibit-title" style="margin-bottom:8px;">牛黄文化馆</div>
+            <div class="exhibit-subtitle">中学生研学基地</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-row">
+                <div class="info-key">适用年级</div>
+                <div class="info-val">初中（初一～初三）</div>
+            </div>
+            <div class="info-row">
+                <div class="info-key">参观时长</div>
+                <div class="info-val">60 / 90 / 120 分钟 三级可选</div>
+            </div>
+            <div class="info-row">
+                <div class="info-key">课程定位</div>
+                <div class="info-val">融合中医药文化、历史、科技与健康</div>
+            </div>
+            <div class="info-row">
+                <div class="info-key">展区数量</div>
+                <div class="info-val">9大主题展区</div>
+            </div>
+            <div class="info-row">
+                <div class="info-key">核心理念</div>
+                <div class="info-val">医道同源 · 守正创新</div>
+            </div>
+        </div>
+
+        <div class="section-block" style="padding-top:0;">
+            <div class="exhibit-title" style="font-size:17px;margin-bottom:12px;">🗺️ 展区导览</div>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <div class="fc-num" style="font-size:14px;color:var(--gold);">序厅</div>
+                    <div class="fc-label">镇库之宝 · 济世医典 · 稀贵神</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-num" style="font-size:14px;color:var(--gold);">中厅</div>
+                    <div class="fc-label">护佑华夏 · 文脉丝路</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-num" style="font-size:14px;color:#E8B84B;">科研厅</div>
+                    <div class="fc-label">体外培育 · 抗炎应用</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fc-num" style="font-size:14px;color:#7BC67B;">尾厅</div>
+                    <div class="fc-label">东方之骄 · 国药之光</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block" style="padding-top:0;">
+            <div class="highlight-box">
+                <div class="h-title">📌 参观提示</div>
+                <div class="h-text">
+                    · 建议先浏览导览图，对展区有整体了解<br>
+                    · 选一个感兴趣的任务课题深入探究<br>
+                    · 记得带上研学手册，记录你的发现<br>
+                    · 互动展区可动手体验，别错过<br>
+                    · 研学结束后填写记录表
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block" style="text-align:center;padding-top:10px;">
+            <div style="font-size:24px;margin-bottom:8px;">☯️</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">
+                济世度人 · 千年传承<br>
+                愿你在牛黄文化馆收获满满！
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== 底部导航 ===== -->
+<div class="bottom-nav" id="bottomNav" style="display:none;">
+    <div class="bn-item active" onclick="switchTab('guide', this)">
+        <div class="bn-icon">🏛️</div>
+        <div class="bn-label">导览图</div>
+    </div>
+    <div class="bn-item" onclick="switchTab('task', this)">
+        <div class="bn-icon">📋</div>
+        <div class="bn-label">研学任务</div>
+    </div>
+    <div class="bn-item" onclick="switchTab('about', this)">
+        <div class="bn-icon">ℹ️</div>
+        <div class="bn-label">参观须知</div>
+    </div>
+</div>
+
+<script>
+    function enterMuseum() {
+        document.getElementById('splash').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('bottomNav').style.display = 'flex';
+        setupScrollAnimations();
+        updateNavProgress();
+    }
+
+    function switchTab(tab, el) {
+        document.querySelectorAll('.bn-item').forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
+
+        document.getElementById('guide-area').style.display = tab === 'guide' ? 'block' : 'none';
+        document.getElementById('task-area').style.display = tab === 'task' ? 'block' : 'none';
+        document.getElementById('about-area').style.display = tab === 'about' ? 'block' : 'none';
+
+        if (tab === 'guide') setupScrollAnimations();
+    }
+
+    function switchTaskLevel(level, el) {
+        document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('task-simple').style.display = level === 'simple' ? 'block' : 'none';
+        document.getElementById('task-deep').style.display = level === 'deep' ? 'block' : 'none';
+        document.getElementById('task-pro').style.display = level === 'pro' ? 'block' : 'none';
+    }
+
+    function setupScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    function updateNavProgress() {
+        const zones = document.querySelectorAll('#guide-area .section-block');
+        const nav = document.getElementById('navProgress');
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = Array.from(zones).indexOf(entry.target) + 1;
+                    if (nav) nav.textContent = `展区 ${idx}/${zones.length}`;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        zones.forEach(zone => scrollObserver.observe(zone));
+    }
+
+    // ===== 分享功能 =====
+    var shareOpened = false;
+
+    function openSharePanel() {
+        var overlay = document.getElementById('shareOverlay');
+        overlay.classList.add('show');
+        shareOpened = true;
+        // 生成二维码
+        generateQR();
+        // 显示当前URL
+        var url = window.location.href;
+        var display = document.getElementById('shareUrlDisplay');
+        if (display) display.textContent = url;
+    }
+
+    function closeSharePanel(e) {
+        if (e && e.target !== document.getElementById('shareOverlay')) return;
+        var overlay = document.getElementById('shareOverlay');
+        if (overlay) overlay.classList.remove('show');
+        shareOpened = false;
+    }
+
+    function showToast(msg) {
+        var toast = document.getElementById('shareToast');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(function() { toast.classList.add('hidden'); }, 2000);
+    }
+
+    function getShareUrl() {
+        return window.location.href;
+    }
+
+    function getShareText() {
+        return '牛黄文化馆 · 中学生研学导览\n从皇室御药到现代科研突破，化身小小中医研究员探索牛黄神奇奥秘！\n涵盖9大展区 + 研学任务手册，适合初中生参观学习。';
+    }
+
+    // Web Share API (手机原生)
+    async function nativeShare() {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '牛黄文化馆 · 中学生研学导览',
+                    text: getShareText(),
+                    url: getShareUrl()
+                });
+                return true;
+            } catch(e) { /* user cancelled */ }
+        }
+        return false;
+    }
+
+    function shareWechat() {
+        showToast('请截图分享到微信朋友圈或群聊');
+    }
+
+    function shareSMS() {
+        var url = getShareUrl();
+        var text = getShareText();
+        var smsUrl = 'sms:?body=' + encodeURIComponent(text + '\n' + url);
+        location.href = smsUrl;
+    }
+
+    function shareEmail() {
+        var text = getShareText();
+        var url = getShareUrl();
+        var mailUrl = 'mailto:?subject=' + encodeURIComponent('牛黄文化馆研学导览分享') + '&body=' + encodeURIComponent(text + '\n\n链接：' + url);
+        location.href = mailUrl;
+    }
+
+    function copyLink() {
+        var url = getShareUrl();
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(function() {
+                showToast('链接已复制到剪贴板！');
+            }).catch(function() {
+                fallbackCopy(url);
+            });
+        } else {
+            fallbackCopy(url);
+        }
+    }
+
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showToast('链接已复制到剪贴板！'); } catch(e) {}
+        document.body.removeChild(ta);
+    }
+
+    // ===== 二维码生成（纯前端实现，无需库） =====
+    // 使用QRCode.js CDN
+    function generateQR() {
+        var container = document.getElementById('qrcode');
+        if (!container) return;
+        container.innerHTML = '';
+        var url = getShareUrl();
+
+        var script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js';
+        script.onload = function() {
+            new QRCode(container, {
+                text: url,
+                width: 160,
+                height: 160,
+                colorDark: '#2C1A0E',
+                colorLight: '#FFFFFF',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        };
+        script.onerror = function() {
+            // fallback: 显示文字链接
+            container.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:20px;">QR加载失败<br><a href="' + url + '" style="word-break:break-all;color:var(--gold-dark);">' + url + '</a></div>';
+        };
+        document.head.appendChild(script);
+    }
+
+    // ===== 下载分享卡片图片 =====
+    function downloadShareCard() {
+        var canvas = document.getElementById('shareCardCanvas');
+        var ctx = canvas.getContext('2d');
+        var W = 750, H = 500;
+
+        // 背景渐变
+        var grad = ctx.createLinearGradient(0, 0, W, H);
+        grad.addColorStop(0, '#FFFBF0');
+        grad.addColorStop(0.5, '#FFF0D0');
+        grad.addColorStop(1, '#FFE8A0');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+
+        // 顶部装饰线
+        ctx.fillStyle = '#B8860B';
+        ctx.fillRect(0, 0, W, 8);
+
+        // 图标
+        ctx.font = 'bold 80px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('💎', W/2, 110);
+
+        // 标题
+        ctx.font = 'bold 42px "Noto Serif SC", serif';
+        ctx.fillStyle = '#2C1A0E';
+        ctx.fillText('牛黄文化馆', W/2, 175);
+
+        // 副标题
+        ctx.font = '28px "Noto Serif SC", serif';
+        ctx.fillStyle = '#7A5C00';
+        ctx.fillText('中学生研学导览', W/2, 215);
+
+        // 分隔线
+        ctx.strokeStyle = 'rgba(184,134,11,0.3)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(80, 240);
+        ctx.lineTo(W - 80, 240);
+        ctx.stroke();
+
+        // 描述文字
+        ctx.font = '22px "Noto Serif SC", serif';
+        ctx.fillStyle = '#4A3020';
+        var lines = [
+            '从皇室御药到现代科研突破',
+            '化身小小中医研究员',
+            '探索牛黄神奇奥秘'
+        ];
+        lines.forEach(function(line, i) {
+            ctx.fillText(line, W/2, 280 + i * 34);
+        });
+
+        // 标签
+        var tags = ['9大展区', '研学任务手册', '初中适用'];
+        var tagX = W / 2 - (tags.length * 120) / 2;
+        tags.forEach(function(tag, i) {
+            var tx = tagX + i * 125;
+            ctx.fillStyle = 'rgba(184,134,11,0.12)';
+            ctx.strokeStyle = 'rgba(184,134,11,0.4)';
+            ctx.lineWidth = 1;
+            roundRect(ctx, tx, 395, 110, 38, 8);
+            ctx.fill();
+            ctx.stroke();
+            ctx.font = '18px "Noto Serif SC", serif';
+            ctx.fillStyle = '#7A5C00';
+            ctx.fillText(tag, tx + 55, 421);
+        });
+
+        // 底部URL
+        ctx.font = '16px monospace';
+        ctx.fillStyle = '#8B6E4E';
+        var displayUrl = window.location.href.replace(/\?.*/, '').substring(0, 60) + '...';
+        ctx.fillText(displayUrl, W/2, 475);
+
+        // 下载
+        var link = document.createElement('a');
+        link.download = '牛黄文化馆研学导览.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('分享图片已保存！');
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+    }
+
+    // 滚动显示/隐藏分享按钮
+    function setupShareFab() {
+        var fab = document.getElementById('shareFab');
+        if (!fab) return;
+        var content = document.getElementById('content');
+        if (!content) return;
+
+        var observer = new MutationObserver(function() {
+            if (content.style.display !== 'none') {
+                fab.classList.add('show');
+            } else {
+                fab.classList.remove('show');
+            }
+        });
+        observer.observe(content, { attributes: true, attributeFilter: ['style'] });
+
+        // Initial check
+        if (content.style.display !== 'none') {
+            fab.classList.add('show');
+        }
+    }
+
+    // 入场后初始化分享按钮
+    var shareFabInterval;
+    function checkContentVisible() {
+        var content = document.getElementById('content');
+        var fab = document.getElementById('shareFab');
+        if (content && content.style.display !== 'none' && fab) {
+            fab.classList.add('show');
+            clearInterval(shareFabInterval);
+        }
+    }
+    shareFabInterval = setInterval(checkContentVisible, 200);
+
+    // ===== 分享功能 =====
+    var shareOpened = false;
+
+    function openSharePanel() {
+        var overlay = document.getElementById('shareOverlay');
+        overlay.classList.add('show');
+        shareOpened = true;
+        // 生成二维码
+        generateQR();
+        // 显示当前URL
+        var url = window.location.href;
+        var display = document.getElementById('shareUrlDisplay');
+        if (display) display.textContent = url;
+    }
+
+    function closeSharePanel(e) {
+        if (e && e.target !== document.getElementById('shareOverlay')) return;
+        var overlay = document.getElementById('shareOverlay');
+        if (overlay) overlay.classList.remove('show');
+        shareOpened = false;
+    }
+
+    function showToast(msg) {
+        var toast = document.getElementById('shareToast');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(function() { toast.classList.add('hidden'); }, 2000);
+    }
+
+    function getShareUrl() {
+        return window.location.href;
+    }
+
+    function getShareText() {
+        return '牛黄文化馆 · 中学生研学导览\n从皇室御药到现代科研突破，化身小小中医研究员探索牛黄神奇奥秘！\n涵盖9大展区 + 研学任务手册，适合初中生参观学习。';
+    }
+
+    // Web Share API (手机原生)
+    async function nativeShare() {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '牛黄文化馆 · 中学生研学导览',
+                    text: getShareText(),
+                    url: getShareUrl()
+                });
+                return true;
+            } catch(e) { /* user cancelled */ }
+        }
+        return false;
+    }
+
+    function shareWechat() {
+        showToast('请截图分享到微信朋友圈或群聊');
+    }
+
+    function shareSMS() {
+        var url = getShareUrl();
+        var text = getShareText();
+        var smsUrl = 'sms:?body=' + encodeURIComponent(text + '\n' + url);
+        location.href = smsUrl;
+    }
+
+    function shareEmail() {
+        var text = getShareText();
+        var url = getShareUrl();
+        var mailUrl = 'mailto:?subject=' + encodeURIComponent('牛黄文化馆研学导览分享') + '&body=' + encodeURIComponent(text + '\n\n链接：' + url);
+        location.href = mailUrl;
+    }
+
+    function copyLink() {
+        var url = getShareUrl();
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(function() {
+                showToast('链接已复制到剪贴板！');
+            }).catch(function() {
+                fallbackCopy(url);
+            });
+        } else {
+            fallbackCopy(url);
+        }
+    }
+
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showToast('链接已复制到剪贴板！'); } catch(e) {}
+        document.body.removeChild(ta);
+    }
+
+    // ===== 二维码生成（纯前端实现，无需库） =====
+    // 使用QRCode.js CDN
+    function generateQR() {
+        var container = document.getElementById('qrcode');
+        if (!container) return;
+        container.innerHTML = '';
+        var url = getShareUrl();
+
+        var script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js';
+        script.onload = function() {
+            new QRCode(container, {
+                text: url,
+                width: 160,
+                height: 160,
+                colorDark: '#2C1A0E',
+                colorLight: '#FFFFFF',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        };
+        script.onerror = function() {
+            // fallback: 显示文字链接
+            container.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:20px;">QR加载失败<br><a href="' + url + '" style="word-break:break-all;color:var(--gold-dark);">' + url + '</a></div>';
+        };
+        document.head.appendChild(script);
+    }
+
+    // ===== 下载分享卡片图片 =====
+    function downloadShareCard() {
+        var canvas = document.getElementById('shareCardCanvas');
+        var ctx = canvas.getContext('2d');
+        var W = 750, H = 500;
+
+        // 背景渐变
+        var grad = ctx.createLinearGradient(0, 0, W, H);
+        grad.addColorStop(0, '#FFFBF0');
+        grad.addColorStop(0.5, '#FFF0D0');
+        grad.addColorStop(1, '#FFE8A0');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+
+        // 顶部装饰线
+        ctx.fillStyle = '#B8860B';
+        ctx.fillRect(0, 0, W, 8);
+
+        // 图标
+        ctx.font = 'bold 80px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('💎', W/2, 110);
+
+        // 标题
+        ctx.font = 'bold 42px "Noto Serif SC", serif';
+        ctx.fillStyle = '#2C1A0E';
+        ctx.fillText('牛黄文化馆', W/2, 175);
+
+        // 副标题
+        ctx.font = '28px "Noto Serif SC", serif';
+        ctx.fillStyle = '#7A5C00';
+        ctx.fillText('中学生研学导览', W/2, 215);
+
+        // 分隔线
+        ctx.strokeStyle = 'rgba(184,134,11,0.3)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(80, 240);
+        ctx.lineTo(W - 80, 240);
+        ctx.stroke();
+
+        // 描述文字
+        ctx.font = '22px "Noto Serif SC", serif';
+        ctx.fillStyle = '#4A3020';
+        var lines = [
+            '从皇室御药到现代科研突破',
+            '化身小小中医研究员',
+            '探索牛黄神奇奥秘'
+        ];
+        lines.forEach(function(line, i) {
+            ctx.fillText(line, W/2, 280 + i * 34);
+        });
+
+        // 标签
+        var tags = ['9大展区', '研学任务手册', '初中适用'];
+        var tagX = W / 2 - (tags.length * 120) / 2;
+        tags.forEach(function(tag, i) {
+            var tx = tagX + i * 125;
+            ctx.fillStyle = 'rgba(184,134,11,0.12)';
+            ctx.strokeStyle = 'rgba(184,134,11,0.4)';
+            ctx.lineWidth = 1;
+            roundRect(ctx, tx, 395, 110, 38, 8);
+            ctx.fill();
+            ctx.stroke();
+            ctx.font = '18px "Noto Serif SC", serif';
+            ctx.fillStyle = '#7A5C00';
+            ctx.fillText(tag, tx + 55, 421);
+        });
+
+        // 底部URL
+        ctx.font = '16px monospace';
+        ctx.fillStyle = '#8B6E4E';
+        var displayUrl = window.location.href.replace(/\?.*/, '').substring(0, 60) + '...';
+        ctx.fillText(displayUrl, W/2, 475);
+
+        // 下载
+        var link = document.createElement('a');
+        link.download = '牛黄文化馆研学导览.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('分享图片已保存！');
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+    }
+
+    // 滚动显示/隐藏分享按钮
+    function setupShareFab() {
+        var fab = document.getElementById('shareFab');
+        if (!fab) return;
+        var content = document.getElementById('content');
+        if (!content) return;
+
+        var observer = new MutationObserver(function() {
+            if (content.style.display !== 'none') {
+                fab.classList.add('show');
+            } else {
+                fab.classList.remove('show');
+            }
+        });
+        observer.observe(content, { attributes: true, attributeFilter: ['style'] });
+
+        // Initial check
+        if (content.style.display !== 'none') {
+            fab.classList.add('show');
+        }
+    }
+
+    // 入场后初始化分享按钮
+    var shareFabInterval;
+    function checkContentVisible() {
+        var content = document.getElementById('content');
+        var fab = document.getElementById('shareFab');
+        if (content && content.style.display !== 'none' && fab) {
+            fab.classList.add('show');
+            clearInterval(shareFabInterval);
+        }
+    }
+    shareFabInterval = setInterval(checkContentVisible, 200);
+
+</script>
+
+<!-- 分享浮窗按钮 -->
+<button class="share-fab" id="shareFab" onclick="openSharePanel()" aria-label="分享">&#x1F4E4;</button>
+
+<!-- 分享弹窗 -->
+<div class="share-overlay" id="shareOverlay" onclick="closeSharePanel(event)">
+    <div class="share-panel" onclick="event.stopPropagation()">
+        <div class="share-panel-handle"></div>
+        <div class="share-panel-title">&#x1F38A; 分享给同学和朋友</div>
+
+        <!-- 分享卡片预览 -->
+        <div class="share-card-preview">
+            <div class="sc-title">&#x1F3DB; 牛黄文化馆 · 中学生研学导览</div>
+            <div class="sc-desc">从皇室御药到现代科研突破，化身小小中医研究员，探索牛黄神奇奥秘！涵盖9大展区、研学任务手册，适合初中生参观学习。</div>
+            <div class="sc-url" id="shareUrlDisplay"></div>
+        </div>
+
+        <!-- 分享渠道 -->
+        <div class="share-options">
+            <div class="share-opt" onclick="shareWechat()">
+                <div class="share-opt-icon wechat">&#x1F4F1;</div>
+                <div class="share-opt-label">微信</div>
+            </div>
+            <div class="share-opt" onclick="shareSMS()">
+                <div class="share-opt-icon sms">&#x2709;</div>
+                <div class="share-opt-label">短信</div>
+            </div>
+            <div class="share-opt" onclick="shareEmail()">
+                <div class="share-opt-icon email">&#x1F4E7;</div>
+                <div class="share-opt-label">邮件</div>
+            </div>
+            <div class="share-opt" onclick="copyLink()">
+                <div class="share-opt-icon copy">&#x1F4CB;</div>
+                <div class="share-opt-label">复制链接</div>
+            </div>
+        </div>
+
+        <!-- 二维码 -->
+        <div class="qr-section">
+            <div class="qr-section-title">&#x1F4F6; 微信扫码分享</div>
+            <div id="qrcode"></div>
+            <div class="qr-hint">用微信扫一扫，即可打开研学导览</div>
+        </div>
+
+        <!-- 保存卡片图片 -->
+        <button class="save-card-btn" onclick="downloadShareCard()">
+            &#x2B07; 保存分享图片到相册
+        </button>
+
+        <button class="share-close" onclick="closeSharePanel()">取消</button>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="share-toast hidden" id="shareToast"></div>
+
+<!-- 分享卡片Canvas（隐藏） -->
+<canvas id="shareCardCanvas" width="750" height="500"></canvas>
+
+<!-- 分享浮窗按钮 -->
+<button class="share-fab" id="shareFab" onclick="openSharePanel()" aria-label="分享">&#x1F4E4;</button>
+
+<!-- 分享弹窗 -->
+<div class="share-overlay" id="shareOverlay" onclick="closeSharePanel(event)">
+    <div class="share-panel" onclick="event.stopPropagation()">
+        <div class="share-panel-handle"></div>
+        <div class="share-panel-title">&#x1F38A; 分享给同学和朋友</div>
+
+        <!-- 分享卡片预览 -->
+        <div class="share-card-preview">
+            <div class="sc-title">&#x1F3DB; 牛黄文化馆 · 中学生研学导览</div>
+            <div class="sc-desc">从皇室御药到现代科研突破，化身小小中医研究员，探索牛黄神奇奥秘！涵盖9大展区、研学任务手册，适合初中生参观学习。</div>
+            <div class="sc-url" id="shareUrlDisplay"></div>
+        </div>
+
+        <!-- 分享渠道 -->
+        <div class="share-options">
+            <div class="share-opt" onclick="shareWechat()">
+                <div class="share-opt-icon wechat">&#x1F4F1;</div>
+                <div class="share-opt-label">微信</div>
+            </div>
+            <div class="share-opt" onclick="shareSMS()">
+                <div class="share-opt-icon sms">&#x2709;</div>
+                <div class="share-opt-label">短信</div>
+            </div>
+            <div class="share-opt" onclick="shareEmail()">
+                <div class="share-opt-icon email">&#x1F4E7;</div>
+                <div class="share-opt-label">邮件</div>
+            </div>
+            <div class="share-opt" onclick="copyLink()">
+                <div class="share-opt-icon copy">&#x1F4CB;</div>
+                <div class="share-opt-label">复制链接</div>
+            </div>
+        </div>
+
+        <!-- 二维码 -->
+        <div class="qr-section">
+            <div class="qr-section-title">&#x1F4F6; 微信扫码分享</div>
+            <div id="qrcode"></div>
+            <div class="qr-hint">用微信扫一扫，即可打开研学导览</div>
+        </div>
+
+        <!-- 保存卡片图片 -->
+        <button class="save-card-btn" onclick="downloadShareCard()">
+            &#x2B07; 保存分享图片到相册
+        </button>
+
+        <button class="share-close" onclick="closeSharePanel()">取消</button>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="share-toast hidden" id="shareToast"></div>
+
+<!-- 分享卡片Canvas（隐藏） -->
+<canvas id="shareCardCanvas" width="750" height="500"></canvas>
+
+</body>
+</html>
